@@ -15,23 +15,26 @@ file.close
 Vagrant.configure("2") do |config|
 #We don't want to insert vagrant private key into vms
 config.ssh.insert_key = false
-
-architecture.each do |architecture|
-  config.vm.define architecture["name"] do |server|
-    server.vm.box = "bento/centos-7.2"
-    server.vm.hostname = architecture["name"]
-    server.vm.network "private network", type: dhcp
-    server.vm.provider "virtualbox" do |vb|
-      vb.name = architecture["name"]  
-      vb.cpus = 1
-      vb.memory = architecture["memory"]
+  architecture.each do |architecture|
+    config.vm.define architecture["name"] do |server|
+      server.vm.box = "bento/centos-7.2"
+      server.vm.hostname = architecture["name"]
+      server.vm.network "private_network", ip: architecture["ip"]
+      server.vm.provider "virtualbox" do |vb|
+        vb.name = architecture["name"]  
+        vb.cpus = 1
+        vb.memory = architecture["memory"]
+      end
     end
   end
-end
 
-#config.vm.provision "ansible" do |ansible|
-  #ansible.playbook = "nginx.yml"
-  #ansible.limit = "all"
-  #ansible.groups = ???
-
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "nginx.yml"
+    ansible.limit = "all"
+    ansible.groups = {
+      "haproxy" => ["hp"],
+      "webnodes" => ["web1", "web2","web3"],
+      "all_groups:children" => ["haproxy", "webnodes"]
+      }
+  end
 end

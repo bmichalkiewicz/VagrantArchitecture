@@ -1,0 +1,17 @@
+---
+ - name: Install and configure nginx
+   hosts: webnodes
+   user: vagrant
+   become: true
+   become_user: root
+   roles:
+      - nginx
+      
+ - name: Install and configure haproxy
+   hosts: haproxy
+   user: vagrant
+   become: true
+   become_user: root
+   roles:
+      - haproxy
+
