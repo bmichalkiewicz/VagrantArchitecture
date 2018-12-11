@@ -34,6 +34,7 @@ config.ssh.insert_key = false
     ansible.groups = {
       "haproxy" => ["hp"],
       "webnodes" => ["web1", "web2","web3"],
+      "dbs" => ["db1"],
       "all_groups:children" => ["haproxy", "webnodes"]
       }
   end

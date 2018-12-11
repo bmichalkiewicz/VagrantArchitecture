@@ -1,17 +1,27 @@
 ---
- - name: Install and configure nginx
-   hosts: webnodes
-   user: vagrant
-   become: true
-   become_user: root
-   roles:
-      - nginx
+- name: Install and configure nginx
+  hosts: webnodes
+  user: vagrant
+  become: true
+  become_user: root
+  roles:
+    - nginx
+    - php-fpm
+    - wordpress
       
- - name: Install and configure haproxy
-   hosts: haproxy
-   user: vagrant
-   become: true
-   become_user: root
-   roles:
-      - haproxy
+- name: Install and configure haproxy
+  hosts: haproxy
+  user: vagrant
+  become: true
+  become_user: root
+  roles:
+    - haproxy
+    
+- name: Install and configure mariadb
+  hosts: dbs
+  user: vagrant
+  become: true
+  become_user: root
+  roles:
+    - mariadb
 
