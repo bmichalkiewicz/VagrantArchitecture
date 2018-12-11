@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
 #We don't want to insert vagrant private key into vms
 config.ssh.insert_key = false
 
-if Vagrant.has_plugin?(vagrant-vbguest)
+if Vagrant.has_plugin?("vagrant-vbguest")
   config.vbguest.auto_update = false
 end
 
