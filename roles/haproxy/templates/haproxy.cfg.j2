@@ -68,6 +68,7 @@ frontend main
 backend app-main
     balance roundrobin                                   #Balance algorithm
 {% for host in groups['webnodes'] %}
-   	server {{ hostvars[host].ansible_host}}:80 ;
-    {% endfor %}
+server {{ hostvars[host].inventory_hostname }} {{ hostvars[host].ansible_host }}:80
+{% endfor %}
+
     

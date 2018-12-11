@@ -8,7 +8,8 @@ architecture = YAML.load_file('hosts.yml')
 file = File.open('inventory','w')
 architecture.each do |architecture|
   file.puts architecture["group"]
-  file.puts architecture["name"] + " ansible_ssh_host=" + architecture["ip"] + " ansible_ssh_user=vagrant" + " ansible_ssh_private_key_file=" + architecture["private_key"]
+  #Please change here path to your private_key. check your key with this command: vagrant ssh-config | grep IdentityFile
+  file.puts architecture["name"] + " ansible_host=" + architecture["ip"] + " ansible_user=vagrant" + " ansible_ssh_private_key_file=/Users/bartoszm/.vagrant.d/insecure_private_key"
 end
 file.close
 
@@ -27,6 +28,7 @@ end
       server.vm.network "private_network", ip: architecture["ip"]
       server.vm.provider "virtualbox" do |vb|
         vb.name = architecture["name"]  
+        vb.default_nic_type = "82543GC"
         vb.cpus = 1
         vb.memory = architecture["memory"]
       end
@@ -36,11 +38,6 @@ end
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "nginx.yml"
     ansible.limit = "all"
-    ansible.groups = {
-      "haproxy" => ["hp"],
-      "webnodes" => ["web1", "web2","web3"],
-      "dbs" => ["db1"],
-      "all_groups:children" => ["haproxy", "webnodes"]
-      }
+    ansible.inventory_path = "inventory"
   end
 end
