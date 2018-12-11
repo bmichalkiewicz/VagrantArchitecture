@@ -33,8 +33,9 @@ The output of the command will look like this:
 `/home/username/vms/test/.vagrant/machines/default/virtualbox/private_key`
 
 2. Once you got the ssh key path, insert the path to 15 line of the vagrantfile
+
 __Example:__
-`file.puts architecture["name"] + " ansible_host=" + architecture["ip"] + " ansible_user=vagrant" + " ansible_ssh_private_key_file=**/path/which/be/displayed/by/command/above**"`
+`file.puts architecture["name"] + " ansible_host=" + architecture["ip"] + " ansible_user=vagrant" + " ansible_ssh_private_key_file=/path/which/be/displayed/by/command/above"`
 
 3. In the hosts.yml please change ip of the servers (You can use my sample but please check that ip addresses is not used in your network).
 
