@@ -2,9 +2,6 @@
 require "yaml"
 require "fileutils"
 
-# IMPORTANT -> CHECK YOUR SSH KEY AND PUT PATH BELOW
-sshpath=
-
 #Load yaml file
 architecture = YAML.load_file('hosts.yml')
 #create file "inventory"
@@ -37,6 +34,8 @@ end
       end
     end
   end
+<<<<<<< Updated upstream
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -47,3 +46,9 @@ end
   #end
 >>>>>>> 48bb1ac6659f820d0294b0ce13c676f0d61ba605
 end
+=======
+end
+>>>>>>> a4c7c2274a301f93af5a4f5f196df93201296cec
+=======
+end
+>>>>>>> Stashed changes

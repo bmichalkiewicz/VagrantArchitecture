@@ -30,7 +30,7 @@ In the hosts.yml please change ip of the servers (You can use my sample but plea
 1. run the command `vagrant up` and your VM should bootstrap itself into existence, ready to work with.
 2. To run the playbook, execute the 'run-ansible.sh' script.
 
-`./run-ansible.sh playbook.yml`
+`./run_ansible.sh playbook.yml`
 
 __Warning! Probably you will have to chmod +x on this file:__ `chmod +x run-ansible.sh`
 

@@ -19,12 +19,10 @@ global
 # use if not designated in their block
 #---------------------------------------------------------------------
 defaults
-    mode                    http
+    mode                    tcp
     log                     global
-    option                  httplog
+    option                  tcplog
     option                  dontlognull
-    option http-server-close
-    option forwardfor       except 127.0.0.0/8
     option                  redispatch
     retries                 3
     timeout http-request    10s
@@ -37,38 +35,22 @@ defaults
     maxconn                 3000
 
 #---------------------------------------------------------------------
-#HAProxy Monitoring Config
-#---------------------------------------------------------------------
-listen haproxy-stat *:8080                #Haproxy Monitoring run on port 8080
-    mode http
-    option forwardfor
-    option httpclose
-    stats enable
-    stats show-legends
-    stats refresh 5s
-    stats uri /stats                             #URL for HAProxy monitoring
-    stats realm Haproxy\ Statistics
-    stats auth {{ username }}:{{ password }}            #User and Password for login to the monitoring dashboard
-    stats admin if TRUE
-    default_backend app-main                    #This is optionally for monitoring backend
-
-#---------------------------------------------------------------------
 # FrontEnd Configuration
 #---------------------------------------------------------------------
-frontend main
+frontend www
     bind *:80
-    option http-server-close
-    option forwardfor
-    default_backend app-main
+    default_backend web-backend
 
 #---------------------------------------------------------------------
 # BackEnd roundrobin as balance algorithm
 #---------------------------------------------------------------------
 
-backend app-main
-    balance roundrobin                                   #Balance algorithm
+backend web-backend
+balance roundrobin
+mode tcp
 {% for host in groups['webnodes'] %}
-server {{ hostvars[host].inventory_hostname }} {{ hostvars[host].ansible_host }}:80
+server {{ hostvars[host].inventory_hostname }} {{ hostvars[host].ansible_host }}:80 check cookie {{ hostvars[host].inventory_hostname }}
 {% endfor %}
+
 
     

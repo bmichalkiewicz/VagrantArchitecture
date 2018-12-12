@@ -21,11 +21,18 @@ define('DB_USER', '{{ wp_db_user }}');
 /** MySQL database password */
 define('DB_PASSWORD', '{{ wp_db_password }}');
 /** MySQL hostname */
-define('DB_HOST', '172.28.128.7:3306');
+{% for host in groups['dbs'] %}define('DB_HOST', '{{ hostvars[host].ansible_host }}:3306');{% endfor %}
+
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
+{% for host in groups['haproxy'] %} 
+define('WP_SITEURL', 'http://{{ hostvars[host].ansible_host }}');
+define('WP_HOME', 'http://{{ hostvars[host].ansible_host }}');
+{% endfor %}
+
+
 /**#@+
  * Authentication Unique Keys and Salts.
  *
