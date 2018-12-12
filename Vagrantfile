@@ -34,21 +34,4 @@ end
       end
     end
   end
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-  #config.vm.provision "ansible" do |ansible|
-    #ansible.playbook = "nginx.yml"
-    #ansible.limit = "all"
-    #ansible.inventory_path = "inventory"
-  #end
->>>>>>> 48bb1ac6659f820d0294b0ce13c676f0d61ba605
 end
-=======
-end
->>>>>>> a4c7c2274a301f93af5a4f5f196df93201296cec
-=======
-end
->>>>>>> Stashed changes
