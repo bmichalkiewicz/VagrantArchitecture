@@ -2,9 +2,6 @@
 require "yaml"
 require "fileutils"
 
-# IMPORTANT -> CHECK YOUR SSH KEY AND PUT PATH BELOW
-sshpath=
-
 #Load yaml file
 architecture = YAML.load_file('hosts.yml')
 #create file "inventory"
@@ -37,10 +34,4 @@ end
       end
     end
   end
-
-  #config.vm.provision "ansible" do |ansible|
-    #ansible.playbook = "nginx.yml"
-    #ansible.limit = "all"
-    #ansible.inventory_path = "inventory"
-  #end
 end
