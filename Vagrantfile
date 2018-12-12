@@ -37,4 +37,13 @@ end
       end
     end
   end
+<<<<<<< HEAD
+=======
+
+  #config.vm.provision "ansible" do |ansible|
+    #ansible.playbook = "nginx.yml"
+    #ansible.limit = "all"
+    #ansible.inventory_path = "inventory"
+  #end
+>>>>>>> 48bb1ac6659f820d0294b0ce13c676f0d61ba605
 end
